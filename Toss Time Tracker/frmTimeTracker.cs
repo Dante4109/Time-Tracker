@@ -37,7 +37,7 @@ namespace Toss_Time_Tracker
             txtDetails.Select();
         }
 
-
+        //test for mike
 
         public static TextBox textBox2; // class atribute
 
@@ -211,20 +211,8 @@ namespace Toss_Time_Tracker
             string userDateSlash = currentUser + dash + currentDate + backSlash;
 
             //checkForPath(userDateSlash, tossMainLogName);
-            writeToLog(userDateSlash, tossMainLogName);
-            writeToLog(userDateSlash, taskLogName);
-
-        }
-
-        private void checkForPath(string UserDateSlash, string currentType)
-        {
-            // This text is added only once to the file
-            // Example path C:\\logs\RZELLER-7-17-17\Main Log\RZELLER-7-17-17-Main Log.txt
-            if (!File.Exists(logPath + currentUser + backSlash + UserDateSlash + currentType + backSlash + currentUser + dash + currentDate + dash + currentType + ".txt"))
-            {
-                //Create folder if it does not exist
-                System.IO.Directory.CreateDirectory(logPath + currentUser + backSlash + UserDateSlash + currentType + backSlash);
-            }
+            writeToLog();
+            writeToLog();
 
         }
 
@@ -266,41 +254,22 @@ namespace Toss_Time_Tracker
             }
         }
 
-        private void writeToLog(string UserDateSlash, string currentType)
+        private void writeToLog()
         {
-            //Check Path first 
+            LogWritter writelog = new LogWritter()
             {
-                // This text is added only once to the file
-                // Example path C:\\logs\RZELLER-7-17-17\Main Log\RZELLER-7-17-17-Main Log.txt
-                if (!File.Exists(logPath + currentUser + backSlash + UserDateSlash + currentType + backSlash + currentUser + dash + currentDate + dash + currentType + ".txt"))
-                {
-                    //Create folder if it does not exist
-                    System.IO.Directory.CreateDirectory(logPath + currentUser + backSlash + UserDateSlash + currentType + backSlash);
+                logPath = logPath,
+                currentUser = currentUser,
+                currentDate = currentDate,
+                currentTask = currentTask,
+                currentDetails = currentDetails,
+                startTime = startTime,
+                endTime = endTime,
+                elapsedTime = elapsedTime,
 
-                    // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(logPath + currentUser + backSlash + UserDateSlash + currentType + backSlash + currentUser + dash + currentDate + dash + currentType + ".txt"))
-                    {
-                        sw.WriteLine("User:" + currentUser);
+            };
 
-
-                    }
-                }
-            }
-
-            // This text is always added, making the file longer over time
-            // if it is not deleted.
-            using (StreamWriter sw = File.AppendText(logPath + currentUser + backSlash + UserDateSlash + currentType + backSlash + currentUser + dash + currentDate + dash + currentType + ".txt"))
-            {
-                sw.WriteLine
-                 ("-----------------------------------------------------------------"
-
-               + " \n" + "Date: " + currentDate + "                   " + "Time: " + startTime + " - " + endTime + 
-               "\n" + "Task: " + currentTask + "          " + "Time Elapsed: " + elapsedTime +
-               "\n" + "Work: " + currentType + "\n"
-               + "Details: " + "\n\n" + currentDetails
-               //"-----------------------------------------------------------------"
-               );
-            }
+            writelog.WriteToLogFile();
         }
 
         private void obtainSendAddress()
@@ -312,12 +281,12 @@ namespace Toss_Time_Tracker
         {
 
             // assign values to mail method 
-            sendMail mail = new sendMail()
+            MailSender mail = new MailSender()
             {
                 fromAddressA = "abc@mydomain.com",
                 fromAddressB = "Toss Time Tracker",
                 toAddress = sendAddress,
-                subjectText = "Time Time Log" + currentDate,
+                subjectText = "Toss Time Log" + currentDate,
                 bodyText = "Please see attachment for time log.",
                 attachmentPath = logPath + currentUser + backSlash + currentUser + "-" + currentDate + @"\Main\" + currentUser + dash + currentDate + dash + "Main" + ".txt",
                 usernameMail = "smtpsender4109@gmail.com",

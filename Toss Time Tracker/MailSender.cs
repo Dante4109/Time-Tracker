@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Toss_Time_Tracker
 {
-    class sendMail
+    class MailSender
     {
         public string fromAddressA {get; set;}
         public string fromAddressB { get; set; }

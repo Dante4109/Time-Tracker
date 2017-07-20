@@ -63,6 +63,7 @@
             // 
             // txtTimer
             // 
+            this.txtTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtTimer.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtTimer.Font = new System.Drawing.Font("Consolas", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTimer.ForeColor = System.Drawing.Color.Lime;
@@ -77,6 +78,7 @@
             // 
             // btnPause
             // 
+            this.btnPause.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPause.BackColor = System.Drawing.Color.Red;
             this.btnPause.Font = new System.Drawing.Font("Digital-7", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPause.Location = new System.Drawing.Point(285, 819);
@@ -89,6 +91,7 @@
             // 
             // lblDoing
             // 
+            this.lblDoing.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblDoing.AutoSize = true;
             this.lblDoing.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDoing.ForeColor = System.Drawing.Color.White;
@@ -100,6 +103,7 @@
             // 
             // cmbTask
             // 
+            this.cmbTask.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbTask.BackColor = System.Drawing.Color.Black;
             this.cmbTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTask.ForeColor = System.Drawing.Color.White;
@@ -118,6 +122,9 @@
             // 
             // txtDetails
             // 
+            this.txtDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetails.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtDetails.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDetails.ForeColor = System.Drawing.SystemColors.Window;
@@ -129,6 +136,7 @@
             // 
             // btnReset
             // 
+            this.btnReset.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnReset.Font = new System.Drawing.Font("Digital-7", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.Location = new System.Drawing.Point(12, 819);
@@ -141,6 +149,7 @@
             // 
             // lblTest1
             // 
+            this.lblTest1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTest1.AutoSize = true;
             this.lblTest1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTest1.ForeColor = System.Drawing.Color.White;
@@ -153,6 +162,7 @@
             // 
             // lblTest2
             // 
+            this.lblTest2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTest2.AutoSize = true;
             this.lblTest2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTest2.ForeColor = System.Drawing.Color.White;
@@ -165,6 +175,8 @@
             // 
             // btnSendMail
             // 
+            this.btnSendMail.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnSendMail.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSendMail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnSendMail.Font = new System.Drawing.Font("Digital-7", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSendMail.Location = new System.Drawing.Point(567, 819);
@@ -177,6 +189,7 @@
             // 
             // lblNumTicks
             // 
+            this.lblNumTicks.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblNumTicks.AutoSize = true;
             this.lblNumTicks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNumTicks.ForeColor = System.Drawing.Color.White;
@@ -189,6 +202,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
@@ -201,6 +215,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
@@ -212,6 +227,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
@@ -223,6 +239,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(12, 27);
             this.pictureBox1.Name = "pictureBox1";
