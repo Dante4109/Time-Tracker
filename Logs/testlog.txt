@@ -1,0 +1,45 @@
+----------------------------------------------------------------- 
+Date: 5/31/2017                 Time: 11:08:23 AM - 11: 08:24 AM
+Task: On a phone call                  Time Elapsed: 00:00:00
+Details: test 
+
+----------------------------------------------------------------- 
+Date: 5/31/2017                 Time: 11:08:26 AM - 11: 08:27 AM
+Task: On a phone call                  Time Elapsed: 00:00:00
+Details: test 2 
+
+----------------------------------------------------------------- 
+Date: 6/1/2017                 Time: 10:45:33 AM - 10: 45:43 AM
+Task: On a phone call                  Time Elapsed: 00:00:09
+Details: test 1
+
+----------------------------------------------------------------- 
+Date: 6/5/2017                 Time: 9:19:10 AM - 9: 19:12 AM
+Task: Managing/Creating Tickets                  Time Elapsed: 00:00:01
+Details: dhdfh
+
+----------------------------------------------------------------- 
+Date: 6/5/2017                 Time: 10:12:06 AM - 10: 12:08 AM
+Task: Project                  Time Elapsed: 00:00:01
+Details: fasefasef
+
+----------------------------------------------------------------- 
+Date: 6/5/2017                 Time: 11:45:19 AM - 11: 45:23 AM
+Task: Project                  Time Elapsed: 00:00:03
+Details: klfhyil
+
+----------------------------------------------------------------- 
+Date: 6/5/2017                 Time: 12:02:47 PM - 12: 02:50 PM
+Task: On a phone call                  Time Elapsed: 00:00:02
+Details: drhdh
+
+----------------------------------------------------------------- 
+Date: 6/6/2017                 Time: 1:14:40 PM - 1: 14:43 PM
+Task: On a phone call                  Time Elapsed: 00:00:02
+Details: xdfg
+
+----------------------------------------------------------------- 
+Date: 6/6/2017                 Time: 1:14:40 PM - 1: 15:25 PM
+Task:                  Time Elapsed: 
+Details: 
+
