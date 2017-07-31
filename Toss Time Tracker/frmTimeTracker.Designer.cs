@@ -185,7 +185,7 @@
             this.btnSendMail.TabIndex = 12;
             this.btnSendMail.Text = "Send Log";
             this.btnSendMail.UseVisualStyleBackColor = false;
-            this.btnSendMail.Click += new System.EventHandler(this.btnSendMail_Click);
+            this.btnSendMail.Click += new System.EventHandler(this.btnSendLog_Click);
             // 
             // lblNumTicks
             // 

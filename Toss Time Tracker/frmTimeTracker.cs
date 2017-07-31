@@ -21,53 +21,41 @@ namespace Toss_Time_Tracker
     public partial class frmTimeTracker : Form
     {
 
-        //branch test 
+         
         Stopwatch stopWatch = new Stopwatch();
 
         //Decalre universal variables 
-        // These variables are used all throughtout the timetracker frm 
+        // These variables are used all throughtout the timetracker UI frm 
         Timer timer1;
         string elapsedTime, currentTask, currentDetails, currentDate, startTime, endTime, currentUser = "RZELLER", sendAddress = "rogerjohnmorellizeller@gmail.com",
-        tossInternalLogName = "Internal", tossMainLogName = "Main", tossClientLogName = "Client", tossLunchLogName = "Lunch", tossOtherLogName = "Other", taskLogName, backSlash = @"\", dash = "-";
-        
-        bool paused = false; 
+        tossInternalLogName = "Internal", tossMainLogName = "Main", tossClientLogName = "Client", tossLunchLogName = "Lunch", tossOtherLogName = "Other", taskLogName, backSlash = @"\", dash = "-",
+        logPath = @"C:\Logs\";
+        bool paused = false;
+
         public frmTimeTracker()
         {
             InitializeComponent();
             txtDetails.Select();
         }
 
-        //test for mike
-
-        public static TextBox textBox2; // class atribute
-
-        public frmTimeTracker(TextBox txtUser)
-        {
-            currentUser = txtUser.Text;
-        }
-
-        string logPath = @"C:\Logs\";
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            timer1 = new Timer();
-            timer1.Tick += new EventHandler(timer1_Tick);
-
-            lblTest1.Text = stopWatch.ElapsedTicks.ToString();
             startTracker();
-
         }
 
+        void timer1_Tick(object sender, EventArgs e)
+        {
 
-
-
+            lblTest1.Text = stopWatch.ElapsedTicks.ToString();
+            txtTimer.Text = "" + stopWatch.Elapsed;
+        }
 
         private void btnPause_Click_1(object sender, EventArgs e)
         {
 
             if (paused != true)
             {
-                pauseTracker();
+                PauseTracker();
                 btnPause.BackColor = Color.Green;
                 btnPause.Text = "Resume";
                 paused = true;
@@ -77,7 +65,7 @@ namespace Toss_Time_Tracker
             {
                 timer1.Start();
                 stopWatch.Start();
-                obtainStartTime();
+                ObtainStartTime();
                 btnPause.BackColor = Color.Red;
                 btnPause.Text = "Pause";
                 paused = false;
@@ -87,27 +75,19 @@ namespace Toss_Time_Tracker
 
         private void btnReset_Click_1(object sender, EventArgs e)
         {
-            resetTracker();
-
-        }
-
-
-        void timer1_Tick(object sender, EventArgs e)
-        {
-
-            lblTest1.Text = stopWatch.ElapsedTicks.ToString();
-            txtTimer.Text = "" + stopWatch.Elapsed;
+            ResetTracker();
         }
 
         private void startTracker()
         {
             timer1.Start();
             stopWatch.Start();
-            obtainStartTime();
-            obtainCurrentDate();
+            lblTest1.Text = stopWatch.ElapsedTicks.ToString();
+            ObtainStartTime();
+            ObtainCurrentDate();
         }
 
-        private void pauseTracker()
+        private void PauseTracker()
         {
             timer1.Stop();
             elapsedTime = txtTimer.Text;
@@ -119,29 +99,26 @@ namespace Toss_Time_Tracker
 
         }
 
-        private void resetTracker()
+        private void ResetTracker()
         {
             timer1.Stop();
-            elapsedTime = txtTimer.Text;
-            elapsedTime = elapsedTime.Substring(0, elapsedTime.Length - 8);
-            lblTest2.Text = elapsedTime;
-            timer1.Dispose();
+            ObtainCurrentTime();
             stopWatch.Stop();
             stopWatch.Reset();
-            obtainCurrentDate();
-            obtainCurrentTask();
-            obtainCurrentDetails();
-            obtainEndTime();
-            checkTask();
-            adjustCurrentTask();
-            writeToLogs();
+            ObtainCurrentDate();
+            ObtainCurrentTask();
+            ObtainCurrentDetails();
+            ObtainEndTime();
+            CheckTask();
+            AdjustCurrentTask();
+            WriteToLogs();
             txtDetails.Text = "";
             cmbTask.Text = "";
             txtTimer.Text = "00:00:00";
             startTracker();
         }
 
-        private void checkIfPaused()
+        private void CheckIfPaused()
         {
             if (paused != true)
             {
@@ -149,19 +126,19 @@ namespace Toss_Time_Tracker
             }
         }
 
-        private void getUserName()
+        private void GetUserName()
         {
             
 
         }
 
-        private void obtainCurrentDate()
+        private void ObtainCurrentDate()
         {
             DateTime localDate = DateTime.Now;
             currentDate = DateTime.Now.ToString("M-d-yyyy");
         }
 
-        private void obtainEndTime()
+        private void ObtainEndTime()
         {
             DateTime localTime = DateTime.Now;
             endTime = DateTime.Now.ToString("h:mm:ss tt");
@@ -172,23 +149,31 @@ namespace Toss_Time_Tracker
             Close();
         }
 
-        private void btnSendMail_Click(object sender, EventArgs e)
+        private void btnSendLog_Click(object sender, EventArgs e)
         {
-            sendEmail();
+            SendEmail();
         }
 
-        private void obtainStartTime()
+        private void ObtainStartTime()
         {
             DateTime localTime = DateTime.Now;
             startTime = DateTime.Now.ToString("h:mm:ss tt");
         }
 
-        private void obtainCurrentTask()
+        private void ObtainCurrentTime()
+        {
+            elapsedTime = txtTimer.Text;
+            elapsedTime = elapsedTime.Substring(0, elapsedTime.Length - 8);
+            lblTest2.Text = elapsedTime;
+            timer1.Dispose();
+        }
+
+        private void ObtainCurrentTask()
         {
             currentTask = cmbTask.Text;
         }
 
-        private void adjustCurrentTask()
+        private void AdjustCurrentTask()
         {
             
             //int spaceCount = currentTask.Split(' ').Length;
@@ -201,22 +186,19 @@ namespace Toss_Time_Tracker
 
         }
 
-        private void obtainCurrentDetails()
+        private void ObtainCurrentDetails()
         {
             currentDetails = txtDetails.Text;
         }
 
-        private void writeToLogs()
+        private void WriteToLogs()
         {
-            string userDateSlash = currentUser + dash + currentDate + backSlash;
-
-            //checkForPath(userDateSlash, tossMainLogName);
-            writeToLog();
-            writeToLog();
-
+            WriteToLog(tossMainLogName);
+            CheckTask();
+            WriteToLog(taskLogName);
         }
 
-        private void checkTask()
+        private void CheckTask()
         {
 
             switch (currentTask)
@@ -254,7 +236,7 @@ namespace Toss_Time_Tracker
             }
         }
 
-        private void writeToLog()
+        private void WriteToLog(string currentType)
         {
             LogWritter writelog = new LogWritter()
             {
@@ -263,6 +245,8 @@ namespace Toss_Time_Tracker
                 currentDate = currentDate,
                 currentTask = currentTask,
                 currentDetails = currentDetails,
+                currentType = currentType,
+
                 startTime = startTime,
                 endTime = endTime,
                 elapsedTime = elapsedTime,
@@ -272,12 +256,12 @@ namespace Toss_Time_Tracker
             writelog.WriteToLogFile();
         }
 
-        private void obtainSendAddress()
+        private void ObtainSendAddress()
         {
             //sendAddress = txtToAddress.Text;
         }
 
-        private void sendEmail()
+        private void SendEmail()
         {
 
             // assign values to mail method 
@@ -294,6 +278,8 @@ namespace Toss_Time_Tracker
            };
 
             mail.sendGmail();
+
+
 
 
 
