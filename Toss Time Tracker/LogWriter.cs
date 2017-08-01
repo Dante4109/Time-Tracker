@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Toss_Time_Tracker
 {
-    class LogWritter
+    class LogWriter
     {
 
         public string logPath { get; set; }

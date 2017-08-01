@@ -33,7 +33,7 @@ namespace Toss_Time_Tracker
 
             this.Hide();
             frmTime.ShowDialog();
-            this.Close();
+           
 
 
 

@@ -25,7 +25,7 @@ namespace Toss_Time_Tracker
         Stopwatch stopWatch = new Stopwatch();
 
         //Decalre universal variables 
-        // These variables are used all throughtout the timetracker UI frm 
+        // These variables are used all throughtout the timetracker UI form 
         Timer timer1;
         string elapsedTime, currentTask, currentDetails, currentDate, startTime, endTime, currentUser = "RZELLER", sendAddress = "rogerjohnmorellizeller@gmail.com",
         tossInternalLogName = "Internal", tossMainLogName = "Main", tossClientLogName = "Client", tossLunchLogName = "Lunch", tossOtherLogName = "Other", taskLogName, backSlash = @"\", dash = "-",
@@ -40,13 +40,19 @@ namespace Toss_Time_Tracker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            lblTicks.Text = stopWatch.ElapsedTicks.ToString();
             startTracker();
         }
+
+        
+
 
         void timer1_Tick(object sender, EventArgs e)
         {
 
-            lblTest1.Text = stopWatch.ElapsedTicks.ToString();
+            lblTicks.Text = stopWatch.ElapsedTicks.ToString();
             txtTimer.Text = "" + stopWatch.Elapsed;
         }
 
@@ -82,7 +88,7 @@ namespace Toss_Time_Tracker
         {
             timer1.Start();
             stopWatch.Start();
-            lblTest1.Text = stopWatch.ElapsedTicks.ToString();
+            lblTicks.Text = stopWatch.ElapsedTicks.ToString();
             ObtainStartTime();
             ObtainCurrentDate();
         }
@@ -111,7 +117,7 @@ namespace Toss_Time_Tracker
             ObtainEndTime();
             CheckTask();
             AdjustCurrentTask();
-            WriteToLogs();
+            RecordData();
             txtDetails.Text = "";
             cmbTask.Text = "";
             txtTimer.Text = "00:00:00";
@@ -191,7 +197,7 @@ namespace Toss_Time_Tracker
             currentDetails = txtDetails.Text;
         }
 
-        private void WriteToLogs()
+        private void RecordData()
         {
             WriteToLog(tossMainLogName);
             CheckTask();
@@ -238,7 +244,7 @@ namespace Toss_Time_Tracker
 
         private void WriteToLog(string currentType)
         {
-            LogWritter writelog = new LogWritter()
+            LogWriter writelog = new LogWriter()
             {
                 logPath = logPath,
                 currentUser = currentUser,
@@ -250,9 +256,9 @@ namespace Toss_Time_Tracker
                 startTime = startTime,
                 endTime = endTime,
                 elapsedTime = elapsedTime,
-
             };
 
+            writelog.checkPath();
             writelog.WriteToLogFile();
         }
 

@@ -35,7 +35,7 @@
             this.cmbTask = new System.Windows.Forms.ComboBox();
             this.txtDetails = new System.Windows.Forms.RichTextBox();
             this.btnReset = new System.Windows.Forms.Button();
-            this.lblTest1 = new System.Windows.Forms.Label();
+            this.lblTicks = new System.Windows.Forms.Label();
             this.lblTest2 = new System.Windows.Forms.Label();
             this.btnSendMail = new System.Windows.Forms.Button();
             this.lblNumTicks = new System.Windows.Forms.Label();
@@ -147,18 +147,18 @@
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click_1);
             // 
-            // lblTest1
+            // lblTicks
             // 
-            this.lblTest1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblTest1.AutoSize = true;
-            this.lblTest1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTest1.ForeColor = System.Drawing.Color.White;
-            this.lblTest1.Location = new System.Drawing.Point(25, 201);
-            this.lblTest1.Name = "lblTest1";
-            this.lblTest1.Size = new System.Drawing.Size(53, 20);
-            this.lblTest1.TabIndex = 10;
-            this.lblTest1.Text = "XXXX";
-            this.lblTest1.Visible = false;
+            this.lblTicks.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTicks.AutoSize = true;
+            this.lblTicks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTicks.ForeColor = System.Drawing.Color.White;
+            this.lblTicks.Location = new System.Drawing.Point(25, 201);
+            this.lblTicks.Name = "lblTicks";
+            this.lblTicks.Size = new System.Drawing.Size(53, 20);
+            this.lblTicks.TabIndex = 10;
+            this.lblTicks.Text = "XXXX";
+            this.lblTicks.Visible = false;
             // 
             // lblTest2
             // 
@@ -367,7 +367,7 @@
             this.Controls.Add(this.lblNumTicks);
             this.Controls.Add(this.btnSendMail);
             this.Controls.Add(this.lblTest2);
-            this.Controls.Add(this.lblTest1);
+            this.Controls.Add(this.lblTicks);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.txtDetails);
             this.Controls.Add(this.cmbTask);
@@ -395,7 +395,7 @@
         private System.Windows.Forms.ComboBox cmbTask;
         private System.Windows.Forms.RichTextBox txtDetails;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Label lblTest1;
+        private System.Windows.Forms.Label lblTicks;
         private System.Windows.Forms.Label lblTest2;
         private System.Windows.Forms.Button btnSendMail;
         private System.Windows.Forms.Label lblNumTicks;
