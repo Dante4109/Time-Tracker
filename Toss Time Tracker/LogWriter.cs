@@ -10,35 +10,27 @@ namespace Toss_Time_Tracker
     class LogWriter
     {
 
-        public string logPath { get; set; }
-        public string currentUser { get; set; }
-        public string currentDate { get; set; }
-        public string currentTask { get; set; }
-        public string currentDetails { get; set; }
-        public string currentType { get; set; }
-
-        public string startTime { get; set; }
-        public string endTime { get; set; }
-        public string elapsedTime { get; set; }
 
 
+        
 
 
-        public void checkPath()
+        public void checkPath(MainDataAcces data)
         {
+            
             //Check Path first 
             {
                 // This text is added only once to the file
                 // Example path C:\\logs\RZELLER-7-17-17\Main Log\RZELLER-7-17-17-Main Log.txt
-                if (!File.Exists(logPath + currentUser + @"\" + currentUser + "-" + currentDate + @"\" + currentType + @"\" + currentUser + "-" + currentDate + "-" + currentType + ".txt"))
+                if (!File.Exists(data.logPath + data.currentUser + @"\" + data.currentUser + "-" + data.currentDate + @"\" + data.currentType + @"\" + data.currentUser + "-" + data.currentDate + "-" + data.currentType + ".txt"))
                 {
                     //Create folder if it does not exist
-                    System.IO.Directory.CreateDirectory(logPath + currentUser + @"\" + currentUser + "-" + currentDate + @"\" + currentType + @"\");
+                    System.IO.Directory.CreateDirectory(data.logPath + data.currentUser + @"\" + data.currentUser + "-" + data.currentDate + @"\" + data.currentType + @"\");
 
                     // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(logPath + currentUser + @"\" + currentUser + "-" + currentDate + @"\" + currentType + @"\" + currentUser + "-" + currentDate + "-" + currentType + ".txt"))
+                    using (StreamWriter sw = File.CreateText(data.logPath + data.currentUser + @"\" + data.currentUser + "-" + data.currentDate + @"\" + data.currentType + @"\" + data.currentUser + "-" + data.currentDate + "-" + data.currentType + ".txt"))
                     {
-                        sw.WriteLine("User:" + currentUser);
+                        sw.WriteLine("User:" + data.currentUser);
 
 
                     }
@@ -46,21 +38,21 @@ namespace Toss_Time_Tracker
             }
         }
 
-        public void WriteToLogFile()
+        public void WriteToLogFile(MainDataAcces data)
         {
             
 
             // This text is always added, making the file longer over time
             // if it is not deleted.
-            using (StreamWriter sw = File.AppendText(logPath + currentUser + @"\" + currentUser + "-" + currentDate + @"\" + currentType + @"\" + currentUser + "-" + currentDate + "-" + currentType + ".txt"))
+            using (StreamWriter sw = File.AppendText(data.logPath + data.currentUser + @"\" + data.currentUser + "-" + data.currentDate + @"\" + data.currentType + @"\" + data.currentUser + "-" + data.currentDate + "-" + data.currentType + ".txt"))
             {
                 sw.WriteLine
                  ("-----------------------------------------------------------------"
 
-               + " \n" + "Date: " + currentDate + "                   " + "Time: " + startTime + " - " + endTime +
-               "\n" + "Task: " + currentTask + "          " + "Time Elapsed: " + elapsedTime +
-               "\n" + "Work: " + currentType + "\n"
-               + "Details: " + "\n\n" + currentDetails
+               + " \n" + "Date: " + data.currentDate + "                   " + "Time: " + data.startTime + " - " + data.endTime +
+               "\n" + "Task: " + data.currentTask + "          " + "Time Elapsed: " + data.elapsedTime +
+               "\n" + "Work: " + data.currentType + "\n"
+               + "Details: " + "\n\n" + data.currentDetails
                //"-----------------------------------------------------------------"
                );
             }

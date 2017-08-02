@@ -105,6 +105,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAcces.cs" />
     <Compile Include="ExcelWriter.cs" />
     <Compile Include="frmTimeTracker.cs">
       <SubType>Form</SubType>

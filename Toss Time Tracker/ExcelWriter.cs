@@ -33,11 +33,19 @@ namespace Toss_Time_Tracker
         private static int lastRow = 0;
 
 
+        public void InitializeExcel(string templatepath)
+        {
 
+            MyApp = new Excel.Application();
+            MyApp.Visible = true;
+            MyBook = MyApp.Workbooks.Open(templatepath);
+            MySheet = (Excel.Worksheet)MyBook.Sheets[currentSheet];
+            lastRow = 8;
+        }
 
         public void WriteTimeToExcel()
         {
-
+           
         }
 
     }

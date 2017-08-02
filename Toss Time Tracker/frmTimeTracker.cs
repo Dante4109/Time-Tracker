@@ -56,6 +56,11 @@ namespace Toss_Time_Tracker
             txtTimer.Text = "" + stopWatch.Elapsed;
         }
 
+        private void btnReset_Click_1(object sender, EventArgs e)
+        {
+            ResetTracker();
+        }
+
         private void btnPause_Click_1(object sender, EventArgs e)
         {
 
@@ -79,11 +84,14 @@ namespace Toss_Time_Tracker
             }
         }
 
-        private void btnReset_Click_1(object sender, EventArgs e)
+        private void btnSendLog_Click(object sender, EventArgs e)
         {
-            ResetTracker();
+            SendEmail();
         }
 
+
+
+        //Tracker functions 
         private void startTracker()
         {
             timer1.Start();
@@ -134,8 +142,7 @@ namespace Toss_Time_Tracker
 
         private void GetUserName()
         {
-            
-
+            //Insert code here 
         }
 
         private void ObtainCurrentDate()
@@ -155,11 +162,7 @@ namespace Toss_Time_Tracker
             Close();
         }
 
-        private void btnSendLog_Click(object sender, EventArgs e)
-        {
-            SendEmail();
-        }
-
+        
         private void ObtainStartTime()
         {
             DateTime localTime = DateTime.Now;
@@ -199,17 +202,40 @@ namespace Toss_Time_Tracker
 
         private void RecordData()
         {
-            WriteToLog(tossMainLogName);
-            CheckTask();
-            WriteToLog(taskLogName);
+            UpdateData(tossMainLogName); //Writes to main log file 
+            UpdateData(taskLogName); //Writes to log file matching current task selected 
         }
+
+        private void UpdateData(string currentType)
+        {
+            
+            MainDataAcces data = new MainDataAcces()
+            {
+                logPath = logPath,
+                currentUser = currentUser,
+                currentDate = currentDate,
+                currentTask = currentTask,
+                currentDetails = currentDetails,
+                currentType = currentType,
+
+                startTime = startTime,
+                endTime = endTime,
+                elapsedTime = elapsedTime,
+            };
+
+            
+            WriteToLog(data);
+
+        }
+
+        
 
         private void CheckTask()
         {
 
             switch (currentTask)
             { 
-
+                
                 case "Client Work":
                     taskLogName = tossClientLogName;
                     break;
@@ -237,29 +263,18 @@ namespace Toss_Time_Tracker
                     taskLogName = tossOtherLogName;
                     break;
 
-       
+
 
             }
         }
 
-        private void WriteToLog(string currentType)
+        private void WriteToLog(MainDataAcces data)
         {
-            LogWriter writelog = new LogWriter()
-            {
-                logPath = logPath,
-                currentUser = currentUser,
-                currentDate = currentDate,
-                currentTask = currentTask,
-                currentDetails = currentDetails,
-                currentType = currentType,
+            LogWriter writelog = new LogWriter();
 
-                startTime = startTime,
-                endTime = endTime,
-                elapsedTime = elapsedTime,
-            };
 
-            writelog.checkPath();
-            writelog.WriteToLogFile();
+            writelog.checkPath(data);
+            writelog.WriteToLogFile(data);
         }
 
         private void ObtainSendAddress()
