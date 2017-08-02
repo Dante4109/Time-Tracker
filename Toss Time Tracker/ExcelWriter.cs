@@ -30,7 +30,7 @@ namespace Toss_Time_Tracker
         private static Excel.Workbook MyBook = null;
         private static Excel.Application MyApp = null;
         private static Excel.Worksheet MySheet = null;
-        private static int lastRow = 0;
+        private static int lastRow;
 
 
         public void InitializeExcel(string templatepath)
@@ -43,12 +43,29 @@ namespace Toss_Time_Tracker
             lastRow = 8;
         }
 
-        public void WriteTimeToExcel()
+        public void WriteTimeToExcel(Excel_Data Excel_data)
         {
-           
-        }
 
-    }
+        {
+                try
+                {
+                    lastRow += 1;
+                    //MySheet.Cells[lastRow, 1] = transactions.Date;
+
+                    //MySheet.Cells[lastRow, 6] = "It worked!";
+                    //DCUDataList.Add(transactions);
+
+
+                }
+                catch (Exception)
+                { }
+
+
+                //MyBook.Close();
+                //MyApp.Quit();
+            }
+
+        }
 
     
 }

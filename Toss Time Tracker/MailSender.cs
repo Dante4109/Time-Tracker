@@ -10,37 +10,27 @@ namespace Toss_Time_Tracker
 {
     class MailSender
     {
-        public string fromAddressA {get; set;}
-        public string fromAddressB { get; set; }
-        public string toAddress { get; set; }
-
-        public string subjectText { get; set; }
-        public string bodyText { get; set; }
-        public string attachmentPath { get; set; }
-
-        public string usernameMail { get; set; }
-        public string passwordMail { get; set; }
 
 
-        public void sendGmail()
+        public void sendGmail(Mail_Data mail_data)
         {
 
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(fromAddressA, fromAddressB);
-            mail.To.Add(toAddress);
+            mail.From = new MailAddress(mail_data.fromAddressA, mail_data.fromAddressB);
+            mail.To.Add(mail_data.toAddress);
             mail.IsBodyHtml = true;
-            mail.Subject = subjectText;
-            mail.Body = bodyText;
+            mail.Subject = mail_data.subjectText;
+            mail.Body = mail_data.bodyText;
             mail.Priority = MailPriority.High;
 
-            if (attachmentPath != null)
+            if (mail_data.attachmentPath != null)
             {
-                mail.Attachments.Add(new Attachment(attachmentPath));
+                mail.Attachments.Add(new Attachment(mail_data.attachmentPath));
             }
 
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             //smtp.UseDefaultCredentials = true;
-            smtp.Credentials = new System.Net.NetworkCredential(usernameMail, passwordMail);
+            smtp.Credentials = new System.Net.NetworkCredential(mail_data.usernameMail, mail_data.passwordMail);
             smtp.EnableSsl = true;
             //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
 

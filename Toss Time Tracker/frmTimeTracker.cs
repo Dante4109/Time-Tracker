@@ -24,8 +24,10 @@ namespace Toss_Time_Tracker
          
         Stopwatch stopWatch = new Stopwatch();
 
-        //Decalre universal variables 
-        // These variables are used all throughtout the timetracker UI form 
+        /*
+        Decalre universal variables 
+        These variables are used all throughtout the timetracker UI form
+        */ 
         Timer timer1;
         string elapsedTime, currentTask, currentDetails, currentDate, startTime, endTime, currentUser = "RZELLER", sendAddress = "rogerjohnmorellizeller@gmail.com",
         tossInternalLogName = "Internal", tossMainLogName = "Main", tossClientLogName = "Client", tossLunchLogName = "Lunch", tossOtherLogName = "Other", taskLogName, backSlash = @"\", dash = "-",
@@ -46,9 +48,6 @@ namespace Toss_Time_Tracker
             startTracker();
         }
 
-        
-
-
         void timer1_Tick(object sender, EventArgs e)
         {
 
@@ -56,6 +55,8 @@ namespace Toss_Time_Tracker
             txtTimer.Text = "" + stopWatch.Elapsed;
         }
 
+
+        //Button Controls 
         private void btnReset_Click_1(object sender, EventArgs e)
         {
             ResetTracker();
@@ -86,11 +87,17 @@ namespace Toss_Time_Tracker
 
         private void btnSendLog_Click(object sender, EventArgs e)
         {
-            SendEmail();
+            RecordEmailData();
         }
 
 
+        //Menu Controls 
+        private void menuExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
+        
         //Tracker functions 
         private void startTracker()
         {
@@ -125,48 +132,37 @@ namespace Toss_Time_Tracker
             ObtainEndTime();
             CheckTask();
             AdjustCurrentTask();
-            RecordData();
+            RecordLogData();
             txtDetails.Text = "";
             cmbTask.Text = "";
             txtTimer.Text = "00:00:00";
             startTracker();
         }
 
-        private void CheckIfPaused()
+
+        //Obtain Global Variables  
+        private void ObtainUserName()
         {
-            if (paused != true)
-            {
-                paused = true;
-            }
+            //Username = currentUser();
         }
 
-        private void GetUserName()
+        private void ObtainStartTime()
         {
-            //Insert code here 
-        }
-
-        private void ObtainCurrentDate()
-        {
-            DateTime localDate = DateTime.Now;
-            currentDate = DateTime.Now.ToString("M-d-yyyy");
+            DateTime localTime = DateTime.Now;
+            startTime = DateTime.Now.ToString("h:mm:ss tt");
         }
 
         private void ObtainEndTime()
         {
             DateTime localTime = DateTime.Now;
             endTime = DateTime.Now.ToString("h:mm:ss tt");
+
         }
 
-        private void menuExit_Click(object sender, EventArgs e)
+        private void ObtainCurrentDate()
         {
-            Close();
-        }
-
-        
-        private void ObtainStartTime()
-        {
-            DateTime localTime = DateTime.Now;
-            startTime = DateTime.Now.ToString("h:mm:ss tt");
+            DateTime localDate = DateTime.Now;
+            currentDate = DateTime.Now.ToString("M-d-yyyy");
         }
 
         private void ObtainCurrentTime()
@@ -182,53 +178,24 @@ namespace Toss_Time_Tracker
             currentTask = cmbTask.Text;
         }
 
-        private void AdjustCurrentTask()
-        {
-            
-            //int spaceCount = currentTask.Split(' ').Length;
-            int slashCount = currentTask.Split('/').Length;
-            int requiredLength = 27 - currentTask.Length;
-            //requiredLength = spaceCount - requiredLength;
-            //requiredLength = slashCount - requiredLength;
-            currentTask = currentTask.PadRight(currentTask.Length + requiredLength, ' ');
-
-
-        }
-
         private void ObtainCurrentDetails()
         {
             currentDetails = txtDetails.Text;
         }
 
-        private void RecordData()
+        private void ObtainSendAddress()
         {
-            UpdateData(tossMainLogName); //Writes to main log file 
-            UpdateData(taskLogName); //Writes to log file matching current task selected 
+            //sendAddress = txtToAddress.Text;
         }
 
-        private void UpdateData(string currentType)
+        //Check States and adjust data 
+        private void CheckIfPaused()
         {
-            
-            MainDataAcces data = new MainDataAcces()
+            if (paused != true)
             {
-                logPath = logPath,
-                currentUser = currentUser,
-                currentDate = currentDate,
-                currentTask = currentTask,
-                currentDetails = currentDetails,
-                currentType = currentType,
-
-                startTime = startTime,
-                endTime = endTime,
-                elapsedTime = elapsedTime,
-            };
-
-            
-            WriteToLog(data);
-
+                paused = true;
+            }
         }
-
-        
 
         private void CheckTask()
         {
@@ -268,25 +235,55 @@ namespace Toss_Time_Tracker
             }
         }
 
-        private void WriteToLog(MainDataAcces data)
+        private void AdjustCurrentTask() 
         {
-            LogWriter writelog = new LogWriter();
-
-
-            writelog.checkPath(data);
-            writelog.WriteToLogFile(data);
+            /*
+            Needed in order to adjust size of currentTask string to foramt properly for writing to logger 
+            CheckTask() must always run before AdjustTask() otherwise the tasklogname will revert to default other
+            */
+            int slashCount = currentTask.Split('/').Length;
+            int requiredLength = 27 - currentTask.Length;
+            currentTask = currentTask.PadRight(currentTask.Length + requiredLength, ' ');
         }
 
-        private void ObtainSendAddress()
+
+        // Update and record Data 
+        private void RecordLogData()
         {
-            //sendAddress = txtToAddress.Text;
+            Update_UI_Data(tossMainLogName); //Writes to main log file 
+            Update_UI_Data(taskLogName); //Writes to log file matching current task selected 
         }
 
-        private void SendEmail()
+        private void RecordEmailData()
         {
+            Update_Mail_Data();
+        }
 
-            // assign values to mail method 
-            MailSender mail = new MailSender()
+        private void Update_UI_Data(string currentType)
+        {
+            
+            UI_Data UI_data = new UI_Data()
+            {
+                logPath = logPath,
+                currentUser = currentUser,
+                currentDate = currentDate,
+                currentTask = currentTask,
+                currentDetails = currentDetails,
+                currentType = currentType,
+
+                startTime = startTime,
+                endTime = endTime,
+                elapsedTime = elapsedTime,
+            };
+
+            
+            WriteToLog(UI_data);
+
+        }
+
+        private void Update_Mail_Data()
+        {
+            Mail_Data mail_data = new Mail_Data()
             {
                 fromAddressA = "abc@mydomain.com",
                 fromAddressB = "Toss Time Tracker",
@@ -296,21 +293,28 @@ namespace Toss_Time_Tracker
                 attachmentPath = logPath + currentUser + backSlash + currentUser + "-" + currentDate + @"\Main\" + currentUser + dash + currentDate + dash + "Main" + ".txt",
                 usernameMail = "smtpsender4109@gmail.com",
                 passwordMail = "TOSS#2017",
-           };
+            };
 
-            mail.sendGmail();
-
-
-
-
-
-
+            SendEmail(mail_data);
 
         }
+       
+        
+        
+        //Business logic class method calls for writing data 
+        private void WriteToLog(UI_Data UI_data)
+        {
+            LogWriter writelog = new LogWriter();
+            writelog.checkPath(UI_data);
+            writelog.WriteToLogFile(UI_data);
+        }
 
-
+        private void SendEmail(Mail_Data mail_data)
+        {
+            MailSender sendMail = new MailSender();
+            sendMail.sendGmail(mail_data);
+        }
     }
-
 }
 
 
