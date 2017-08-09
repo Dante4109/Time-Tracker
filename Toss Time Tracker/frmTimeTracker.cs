@@ -29,9 +29,13 @@ namespace Toss_Time_Tracker
         These variables are used all throughtout the timetracker UI form
         */ 
         Timer timer1;
+        int currentColumn = 6, currentRow = 2, currentSheet = 1;
         string elapsedTime, currentTask, currentDetails, currentDate, startTime, endTime, currentUser = "RZELLER", sendAddress = "rogerjohnmorellizeller@gmail.com",
         tossInternalLogName = "Internal", tossMainLogName = "Main", tossClientLogName = "Client", tossLunchLogName = "Lunch", tossOtherLogName = "Other", taskLogName, backSlash = @"\", dash = "-",
-        logPath = @"C:\Logs\";
+        logFilePath = @"C:\Logs\",
+        excelTemplatePath = @"C:\Logs\Templates\",
+        excelTemplateName = "TimeSheet-Template.xlsx",
+        timeSheetName = "TimeSheet";
         bool paused = false;
 
         public frmTimeTracker()
@@ -39,6 +43,7 @@ namespace Toss_Time_Tracker
             InitializeComponent();
             txtDetails.Select();
         }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -133,6 +138,7 @@ namespace Toss_Time_Tracker
             CheckTask();
             AdjustCurrentTask();
             RecordLogData();
+            //RecordExcelData();
             txtDetails.Text = "";
             cmbTask.Text = "";
             txtTimer.Text = "00:00:00";
@@ -205,29 +211,36 @@ namespace Toss_Time_Tracker
                 
                 case "Client Work":
                     taskLogName = tossClientLogName;
+                    currentRow = 2;
                     break;
 
                 case "Ticket Management":
                     taskLogName = tossInternalLogName;
+                    currentRow = 3;
                     break;
 
                 case "Project":
                     taskLogName = tossInternalLogName;
+                    currentRow = 3;
                     break;
 
                 case "Lunch":
                     taskLogName = tossLunchLogName;
+                    currentRow = 4;
                     break;
 
                 case "Break":
                     taskLogName = tossInternalLogName;
+                    currentRow = 3;
                     break;
 
                 case "Meeting":
                     taskLogName = tossInternalLogName;
+                    currentRow = 3;
                     break;
                 default:
                     taskLogName = tossOtherLogName;
+                    currentRow = 5;
                     break;
 
 
@@ -259,12 +272,17 @@ namespace Toss_Time_Tracker
             Update_Mail_Data();
         }
 
+        private void RecordExcelData()
+        {
+            Update_Excel_Data();
+        }
+
         private void Update_UI_Data(string currentType)
         {
             
             UI_Data UI_data = new UI_Data()
             {
-                logPath = logPath,
+                logFilePath = logFilePath,
                 currentUser = currentUser,
                 currentDate = currentDate,
                 currentTask = currentTask,
@@ -290,13 +308,33 @@ namespace Toss_Time_Tracker
                 toAddress = sendAddress,
                 subjectText = "Toss Time Log" + currentDate,
                 bodyText = "Please see attachment for time log.",
-                attachmentPath = logPath + currentUser + backSlash + currentUser + "-" + currentDate + @"\Main\" + currentUser + dash + currentDate + dash + "Main" + ".txt",
+                attachmentPath = logFilePath + currentUser + backSlash + currentUser + "-" + currentDate + @"\Main\" + currentUser + dash + currentDate + dash + "Main" + ".txt",
                 usernameMail = "smtpsender4109@gmail.com",
                 passwordMail = "TOSS#2017",
             };
 
             SendEmail(mail_data);
 
+        }
+
+        private void Update_Excel_Data()
+        {
+            Excel_Data excel_data = new Excel_Data()
+            {
+                currentUser = currentUser,
+                currentDate = currentDate,
+                currentSheet = currentSheet,
+                currentColumn = currentColumn,
+                currentRow = currentRow,
+                excelTemplatePath = excelTemplatePath,
+                excelTemplateName = excelTemplateName,
+                logFilePath = logFilePath,
+                timeSheetName = timeSheetName,
+                elapsedTime = elapsedTime
+            }; 
+
+            
+            WriteToExcel(excel_data);
         }
        
         
@@ -314,6 +352,31 @@ namespace Toss_Time_Tracker
             MailSender sendMail = new MailSender();
             sendMail.sendGmail(mail_data);
         }
+
+        private void WriteToExcel(Excel_Data excel_data)
+        {
+            ExcelWriter excel = new ExcelWriter();
+            excel.InitializeExcel(excel_data);
+            excel.Write_Name_DateToExcel(excel_data);
+            excel.WriteTimeToExcel(excel_data);
+            ExcelWriter.checkExcelPath(excel_data);
+            ExcelWriter.SaveExcelFile(excel_data);
+            ExcelWriter.CloseExcel();
+        }
+
+
+        //Kill Processes
+        
+        //close excel when done writing to file 
+        public static void closeExcel()
+        {
+            foreach (var process in Process.GetProcessesByName("EXCEL"))
+            {
+                process.Kill();
+                System.Threading.Thread.Sleep(10000);
+            }
+        }
+
     }
 }
 

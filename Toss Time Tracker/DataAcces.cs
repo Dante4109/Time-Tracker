@@ -14,8 +14,7 @@ namespace Toss_Time_Tracker
         public string currentDetails { get; set; }
         public string currentType { get; set; }
 
-        public string logPath { get; set; }
-        public string excelPath { get; set; }
+        public string logFilePath { get; set; }
 
 
         public string startTime { get; set; }
@@ -43,6 +42,19 @@ namespace Toss_Time_Tracker
     class Excel_Data
     {
 
+        public string currentUser { get; set; }
+        public string currentDate { get; set; }
+
+        public int currentSheet { get; set; }
+        public int currentColumn { get; set; }
+        public int currentRow { get; set; }
+
+        public string timeSheetName { get; set; }
+        public string logFilePath { get; set; }
+        public string excelTemplateName { get; set; }
+        public string excelTemplatePath { get; set; }
+        public string elapsedTime { get; set; }
+        
     }
 }
 

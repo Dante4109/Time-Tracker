@@ -4,58 +4,50 @@ using System.Linq;
 using System.Text;
 using System.Data.OleDb;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.IO;
 using System.ComponentModel;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Toss_Time_Tracker
 {
     //test
     class ExcelWriter
     {
-        /*
-        public variables
-        variables pulled from the UI 
-        */
-        public string currentType { get; set; }
-        public string elapsedTime { get; set; }
-        public int currentSheet { get; set; }
-        public string templatePath { get; set; }
-        //public static BindingList<DCU_data> DCUDataList = new BindingList<DCU_data>();
-        //public static BindingList<NET_data> NETDataList = new BindingList<NET_data>();
 
-        /*
-        public variables
-        variables pulled from the UI 
-        */
+        //Static variables only used in ExcelWriterClass 
         private static Excel.Workbook MyBook = null;
         private static Excel.Application MyApp = null;
         private static Excel.Worksheet MySheet = null;
-        private static int lastRow;
 
 
-        public void InitializeExcel(string templatepath)
+
+        public void InitializeExcel(Excel_Data excel_data)
         {
-
             MyApp = new Excel.Application();
-            MyApp.Visible = true;
-            MyBook = MyApp.Workbooks.Open(templatepath);
-            MySheet = (Excel.Worksheet)MyBook.Sheets[currentSheet];
-            lastRow = 8;
+            MyApp.Visible = false;
+            MyBook = MyApp.Workbooks.Open(excel_data.excelTemplatePath + excel_data.excelTemplateName);
+            MySheet = (Excel.Worksheet)MyBook.Sheets[excel_data.currentSheet];
+            
         }
 
-        public void WriteTimeToExcel(Excel_Data Excel_data)
+
+
+
+        public void Write_Name_DateToExcel(Excel_Data excel_data)
+        {
+            MySheet.Cells[2, 2] = excel_data.currentUser;
+            MySheet.Cells[2, 4] = excel_data.currentDate;
+        }
+
+        public void WriteTimeToExcel(Excel_Data excel_data)
         {
 
-        {
+            {
                 try
                 {
-                    lastRow += 1;
-                    //MySheet.Cells[lastRow, 1] = transactions.Date;
-
-                    //MySheet.Cells[lastRow, 6] = "It worked!";
-                    //DCUDataList.Add(transactions);
-
-
+                    
+                    MySheet.Cells[excel_data.currentRow, excel_data.currentColumn] = excel_data.elapsedTime;
                 }
                 catch (Exception)
                 { }
@@ -65,7 +57,40 @@ namespace Toss_Time_Tracker
                 //MyApp.Quit();
             }
 
+
+
+
         }
 
-    
+
+
+        public static void checkExcelPath(Excel_Data excel_data)
+        
+            {
+                if (!File.Exists(excel_data.logFilePath + excel_data.currentUser + @"\" + excel_data.currentUser + "-" + excel_data.currentDate + @"\" + excel_data.timeSheetName + @"\" + excel_data.timeSheetName + "-" + excel_data.currentUser + "-" + excel_data.currentDate + ".xlsx"))
+                {
+
+                    //Create folder if it does not exist
+                    System.IO.Directory.CreateDirectory(excel_data.logFilePath + excel_data.currentUser + @"\" + excel_data.currentUser + "-" + excel_data.currentDate + @"\" + excel_data.timeSheetName + @"\");
+                }
+            }
+        
+
+
+        public static void SaveExcelFile(Excel_Data excel_data)
+        {
+            MyApp.DisplayAlerts = false;
+            MyBook.SaveAs(excel_data.logFilePath + excel_data.currentUser + @"\" + excel_data.currentUser + "-" + excel_data.currentDate + @"\" + excel_data.timeSheetName + @"\" + excel_data.timeSheetName + "-" + excel_data.currentUser + "-" + excel_data.currentDate + ".xlsx");
+        }
+
+        public static void CloseExcel()
+        {
+            MyApp.Quit();
+            Marshal.ReleaseComObject(MySheet);
+            Marshal.ReleaseComObject(MyBook);
+            Marshal.ReleaseComObject(MyApp);
+            MyApp = null;
+        }
+
+    }
 }

@@ -22,13 +22,13 @@ namespace Toss_Time_Tracker
             {
                 // This text is added only once to the file
                 // Example path C:\\logs\RZELLER-7-17-17\Main Log\RZELLER-7-17-17-Main Log.txt
-                if (!File.Exists(UI_data.logPath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + "-" + UI_data.currentType + ".txt"))
+                if (!File.Exists(UI_data.logFilePath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + "-" + UI_data.currentType + ".txt"))
                 {
                     //Create folder if it does not exist
-                    System.IO.Directory.CreateDirectory(UI_data.logPath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\");
+                    System.IO.Directory.CreateDirectory(UI_data.logFilePath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\");
 
                     // Create a file to write to.
-                    using (StreamWriter sw = File.CreateText(UI_data.logPath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + "-" + UI_data.currentType + ".txt"))
+                    using (StreamWriter sw = File.CreateText(UI_data.logFilePath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + "-" + UI_data.currentType + ".txt"))
                     {
                         sw.WriteLine("User:" + UI_data.currentUser);
 
@@ -44,7 +44,7 @@ namespace Toss_Time_Tracker
 
             // This text is always added, making the file longer over time
             // if it is not deleted.
-            using (StreamWriter sw = File.AppendText(UI_data.logPath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + "-" + UI_data.currentType + ".txt"))
+            using (StreamWriter sw = File.AppendText(UI_data.logFilePath + UI_data.currentUser + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + @"\" + UI_data.currentType + @"\" + UI_data.currentUser + "-" + UI_data.currentDate + "-" + UI_data.currentType + ".txt"))
             {
                 sw.WriteLine
                  ("-----------------------------------------------------------------"
